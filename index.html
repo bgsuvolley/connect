@@ -36,9 +36,8 @@
     .q.open .q-head:hover .q-text { color: var(--white); }
     .q-body { display: none; padding: 0 6px 30px 6px; }
     .q.open .q-body { display: block; }
-    @media (min-width: 561px) { .q-body { padding-left: 52px; } }
 
-    .opts { display: flex; gap: 12px; flex-wrap: wrap; }
+    .opts { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
     .opt {
       font-family: var(--font-head); font-weight: 600; font-size: 0.78rem;
       letter-spacing: 0.12em; text-transform: uppercase;
@@ -54,7 +53,7 @@
     .opt:active { transform: translateY(-1px) scale(0.97); transition-duration: 0.1s; }
     .opt.sel { background: var(--orange); border-color: var(--orange); color: var(--white); transform: translateY(-3px); box-shadow: 0 10px 32px rgba(253,80,0,0.38); }
 
-    .q-note { display: none; margin-top: 18px; font-size: 1.02rem; line-height: 1.5; color: rgba(255,255,255,.65); }
+    .q-note { display: none; margin-top: 18px; font-size: 1.02rem; line-height: 1.5; color: rgba(255,255,255,.65); text-align: center; max-width: 520px; margin-left: auto; margin-right: auto; }
     .q-note.visible { display: block; }
     .q-note strong { color: var(--orange); font-weight: 600; }
 
