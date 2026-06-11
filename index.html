@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Let's Connect · BGSU Volleyball</title>
+  <meta property="og:title" content="Let's Connect · BGSU Volleyball" />
+  <meta property="og:description" content="Three quick questions before we talk — we'd love to hear from you." />
+  <meta property="og:image" content="https://bgsuvolley.github.io/connect/images/stroh-interior.jpg" />
+  <meta property="og:url" content="https://bgsuvolley.github.io/connect/" />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --brown: #4F2C1D; --orange: #FD5000; --cream: #FAF6F2; --dark: #1A0F0A;
+      --mid: #8A5C45; --white: #FFFFFF;
+      --font-head: 'Oswald', sans-serif; --font-body: 'Source Sans 3', sans-serif;
+    }
+    body { font-family: var(--font-body); background: var(--dark); color: var(--white); line-height: 1.6; min-height: 100svh; border-top: 8px solid var(--orange); }
+    .wrap { max-width: 760px; margin: 0 auto; padding: clamp(48px, 7vw, 80px) 24px clamp(64px, 9vw, 110px); text-align: center; }
+    .brand-logo { height: clamp(88px, 14vw, 120px); }
+    .lbl { font-family: var(--font-head); font-weight: 500; font-size: clamp(0.72rem, 1.6vw, 0.82rem); letter-spacing: 0.28em; text-transform: uppercase; color: var(--orange); margin: 40px 0 18px; }
+    h1 { font-family: var(--font-head); font-weight: 700; font-size: clamp(3.4rem, 11vw, 6.8rem); line-height: 0.95; text-transform: uppercase; letter-spacing: -0.01em; }
+    h1 em { font-style: normal; color: var(--orange); }
+    .sub { color: rgba(255,255,255,.65); font-size: clamp(1rem, 2.2vw, 1.18rem); margin-top: 10px; }
+
+    .questions { margin-top: clamp(40px, 6vw, 64px); text-align: left; }
+    .q { border-top: 1px solid rgba(255,255,255,.14); }
+    .q:last-of-type { border-bottom: 1px solid rgba(255,255,255,.14); }
+    .q-head { display: flex; align-items: baseline; gap: 22px; padding: 30px 6px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+    .q-num { font-family: var(--font-head); font-weight: 600; font-size: 0.95rem; letter-spacing: 0.18em; color: var(--orange); }
+    .q-text { flex: 1; font-size: clamp(1.15rem, 2.6vw, 1.4rem); font-weight: 600; line-height: 1.3; transition: color 0.2s; }
+    .q-head:hover .q-text { color: var(--orange); }
+    .q.open .q-head:hover .q-text { color: var(--white); }
+    .q-body { display: none; padding: 0 6px 30px 6px; }
+    .q.open .q-body { display: block; }
+    @media (min-width: 561px) { .q-body { padding-left: 52px; } }
+
+    .opts { display: flex; gap: 12px; flex-wrap: wrap; }
+    .opt {
+      font-family: var(--font-head); font-weight: 600; font-size: 0.78rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 14px 32px; border-radius: 100px;
+      border: 1.5px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.6);
+      cursor: pointer;
+      transition: transform 0.3s cubic-bezier(0.34, 1.4, 0.64, 1),
+                  box-shadow 0.3s ease, background 0.25s ease,
+                  border-color 0.25s ease, color 0.2s ease;
+    }
+    .opt:hover { border-color: var(--orange); color: var(--white); background: rgba(253,80,0,0.1); transform: translateY(-3px); box-shadow: 0 10px 32px rgba(253,80,0,0.22), 0 0 0 1px rgba(253,80,0,0.25); }
+    .opt:active { transform: translateY(-1px) scale(0.97); transition-duration: 0.1s; }
+    .opt.sel { background: var(--orange); border-color: var(--orange); color: var(--white); transform: translateY(-3px); box-shadow: 0 10px 32px rgba(253,80,0,0.38); }
+
+    .q-note { display: none; margin-top: 18px; font-size: 1.02rem; line-height: 1.5; color: rgba(255,255,255,.65); }
+    .q-note.visible { display: block; }
+    .q-note strong { color: var(--orange); font-weight: 600; }
+
+    .fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+    .txt {
+      width: 100%;
+      font-family: var(--font-body); font-size: 1rem; font-weight: 400;
+      color: var(--white); background: rgba(255,255,255,0.05);
+      border: 1.5px solid rgba(255,255,255,0.18); border-radius: 100px;
+      padding: 13px 22px; outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .txt::placeholder { color: rgba(255,255,255,0.35); }
+    .txt:focus { border-color: var(--orange); background: rgba(253,80,0,0.07); }
+    textarea.txt { border-radius: 22px; min-height: 92px; resize: vertical; grid-column: 1 / -1; }
+
+    .send {
+      display: inline-flex; align-items: center; gap: 10px;
+      margin: 44px auto 0;
+      background: var(--orange); color: var(--white);
+      font-family: var(--font-head); font-weight: 700; font-size: 0.9rem;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 18px 44px; border: none; cursor: pointer;
+      box-shadow: 0 4px 24px rgba(253,80,0,0.45);
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s, opacity 0.2s;
+      animation: cta-pulse 3.5s ease-in-out infinite;
+    }
+    .send:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(253,80,0,0.65); background: #e04400; animation: none; }
+    .send:disabled { cursor: default; animation: none; opacity: 0.95; }
+    @keyframes cta-pulse {
+      0%, 100% { box-shadow: 0 4px 24px rgba(253,80,0,0.45); }
+      50% { box-shadow: 0 4px 32px rgba(253,80,0,0.75), 0 0 0 7px rgba(253,80,0,0.10); }
+    }
+    .send-note { font-size: 13px; color: rgba(255,255,255,0.4); margin-top: 12px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <img class="brand-logo" src="images/logo.png" alt="BGSU Falcons">
+    <div class="lbl">BGSU Volleyball</div>
+    <h1>Let's <em>connect.</em></h1>
+    <p class="sub">Three quick questions before we talk. Tap a question to answer.</p>
+
+    <div class="questions">
+
+      <div class="q" data-q="learn">
+        <div class="q-head">
+          <span class="q-num">01</span>
+          <span class="q-text">Want the inside look at BGSU Volleyball?</span>
+        </div>
+        <div class="q-body">
+          <div class="opts"><button class="opt" type="button">Yes</button><button class="opt" type="button">No</button></div>
+          <p class="q-note" id="learnNote"></p>
+        </div>
+      </div>
+
+      <div class="q" data-q="call">
+        <div class="q-head">
+          <span class="q-num">02</span>
+          <span class="q-text">Are you free for a quick call on June 15?</span>
+        </div>
+        <div class="q-body">
+          <div class="opts"><button class="opt" type="button">Yes</button><button class="opt" type="button">No</button></div>
+          <p class="q-note" id="callNote"></p>
+        </div>
+      </div>
+
+      <div class="q" data-q="reach">
+        <div class="q-head">
+          <span class="q-num">03</span>
+          <span class="q-text">What's the best place to reach you?</span>
+        </div>
+        <div class="q-body">
+          <div class="fields">
+            <input class="txt" id="fName" type="text" placeholder="Full name" autocomplete="name">
+            <input class="txt" id="fGrad" type="text" inputmode="numeric" placeholder="Grad year">
+            <input class="txt" id="fClub" type="text" placeholder="Club team">
+            <input class="txt" id="fPhone" type="tel" placeholder="Phone" autocomplete="tel">
+            <input class="txt" id="fEmail" type="email" placeholder="Email" autocomplete="email">
+            <input class="txt" id="fInsta" type="text" placeholder="@instagram">
+            <textarea class="txt" id="fNotes" placeholder="Anything else we should know?"></textarea>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <button class="send" id="send" type="button">Send my answers
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+    <p class="send-note" id="sendNote">Goes straight to our staff.</p>
+  </div>
+
+  <script>
+    // ── Google Form wiring ──────────────────────────────────────────────
+    // 1) Create a Google Form with these questions (all short-answer except
+    //    the two Yes/No multiple-choice):
+    //    Q1 inside look (Yes/No) · Q2 call June 15 (Yes/No) · Name ·
+    //    Grad year · Club team · Phone · Email · Instagram · Anything else
+    // 2) Link it to a Sheet (Responses tab → Sheets icon).
+    // 3) Get the pre-filled link (⋮ → Get pre-filled link), and copy the
+    //    long form URL + every entry.XXXXXXXX id into the config below.
+    //    Until ACTION is set, the page falls back to opening an email.
+    const FORM = {
+      ACTION: "https://docs.google.com/forms/d/e/1FAIpQLSeVzIgnfUdJKOOyJ1Gdq95r50GTDGti9rRXAGYAx9VIBp1bEQ/formResponse",
+      LEARN: "entry.582749232",
+      CALL: "entry.1382395181",
+      NAME: "entry.1243026062",
+      GRAD: "entry.1605954835",
+      CLUB: "entry.1452069606",
+      PHONE: "entry.565621755",
+      EMAIL: "entry.1372405964",
+      INSTA: "entry.580603133",
+      NOTES: "entry.725319407"
+    };
+    const FALLBACK_EMAIL = "alexa7fw@gmail.com";
+
+    // ── Click question to reveal answers ────────────────────────────────
+    document.querySelectorAll('.q-head').forEach(head => {
+      head.addEventListener('click', () => head.parentElement.classList.toggle('open'));
+    });
+
+    // ── Pill selection + responses ──────────────────────────────────────
+    const NOTES = {
+      learn: {
+        Yes: '<strong>Love it.</strong> NCAA rules mean we sometimes have to wait to reach out — thanks for being patient with us. Good things are coming.',
+        No: '<strong>Are you sure?</strong> Championship culture, top academics, and a packed Stroh Center — BGSU might have exactly what you\'re looking for.'
+      },
+      call: {
+        Yes: '<strong>Good.</strong> Someone from our staff will reach out when it\'s time — keep your phone close.',
+        No: '<strong>That\'s okay.</strong> We\'ll find a later date that works for you — just make sure we know where to reach you below.'
+      }
+    };
+    document.querySelectorAll('.q').forEach(q => {
+      q.querySelectorAll('.opt').forEach(btn => btn.addEventListener('click', e => {
+        e.stopPropagation();
+        q.querySelectorAll('.opt').forEach(b => b.classList.remove('sel'));
+        btn.classList.add('sel');
+        const note = q.querySelector('.q-note');
+        const set = NOTES[q.dataset.q];
+        if (note && set) {
+          note.classList.add('visible');
+          note.innerHTML = set[btn.textContent.trim()];
+        }
+      }));
+    });
+
+    // ── Collect + send ──────────────────────────────────────────────────
+    const v = id => document.getElementById(id).value.trim();
+    const pick = key => {
+      const sel = document.querySelector('.q[data-q="' + key + '"] .opt.sel');
+      return sel ? sel.textContent.trim() : '';
+    };
+    const sendBtn = document.getElementById('send');
+    const sendNote = document.getElementById('sendNote');
+
+    sendBtn.addEventListener('click', async () => {
+      const a = {
+        learn: pick('learn'), call: pick('call'),
+        name: v('fName'), grad: v('fGrad'), club: v('fClub'),
+        phone: v('fPhone'), email: v('fEmail'), insta: v('fInsta'), notes: v('fNotes')
+      };
+      if (!a.name || !(a.phone || a.email || a.insta)) {
+        document.querySelector('.q[data-q="reach"]').classList.add('open');
+        sendNote.textContent = 'Add your name and at least one way to reach you (question 03).';
+        document.getElementById(!a.name ? 'fName' : 'fPhone').focus();
+        return;
+      }
+      if (FORM.ACTION) {
+        const data = new FormData();
+        data.append(FORM.LEARN, a.learn); data.append(FORM.CALL, a.call);
+        data.append(FORM.NAME, a.name); data.append(FORM.GRAD, a.grad);
+        data.append(FORM.CLUB, a.club); data.append(FORM.PHONE, a.phone);
+        data.append(FORM.EMAIL, a.email); data.append(FORM.INSTA, a.insta);
+        data.append(FORM.NOTES, a.notes);
+        try { await fetch(FORM.ACTION, { method: 'POST', mode: 'no-cors', body: data }); } catch (e) {}
+      } else {
+        const lines = [
+          'Name: ' + a.name, 'Grad year: ' + a.grad, 'Club: ' + a.club,
+          'Phone: ' + a.phone, 'Email: ' + a.email, 'Instagram: ' + a.insta,
+          'Inside look? ' + (a.learn || '(no answer)'),
+          'Call June 15? ' + (a.call || '(no answer)'),
+          'Notes: ' + a.notes
+        ];
+        location.href = 'mailto:' + FALLBACK_EMAIL +
+          '?subject=' + encodeURIComponent('Recruit reply — ' + a.name) +
+          '&body=' + lines.map(encodeURIComponent).join('%0D%0A');
+      }
+      sendBtn.textContent = 'Sent — talk soon.';
+      sendBtn.disabled = true;
+      sendNote.textContent = 'Got it. Our staff will follow up.';
+    });
+  </script>
+</body>
+</html>
